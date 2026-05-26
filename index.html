@@ -6,41 +6,23 @@
 <title>BSI Engine Quiz</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
-     background:#f0f2f5;color:#333;min-height:100vh}
-.hero{background:linear-gradient(135deg,#1a73e8 0%,#6c3aed 100%);
-      padding:48px 20px;text-align:center}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f0f2f5;color:#333;min-height:100vh}
+.hero{background:linear-gradient(135deg,#1a73e8 0%,#6c3aed 100%);padding:48px 20px;text-align:center}
 .hero h1{font-size:32px;font-weight:800;color:#fff;margin-bottom:8px}
 .hero p{color:#e8f0fe;font-size:15px}
 .container{max-width:900px;margin:0 auto;padding:32px 20px}
-.group-title{font-size:12px;font-weight:700;color:#999;
-             margin:32px 0 14px;text-transform:uppercase;
-             letter-spacing:2px;display:flex;align-items:center;gap:8px}
+.group-title{font-size:12px;font-weight:700;color:#999;margin:32px 0 14px;text-transform:uppercase;letter-spacing:2px;display:flex;align-items:center;gap:8px}
 .group-title::after{content:'';flex:1;height:1px;background:#e0e0e0}
-.engine-grid{display:grid;
-             grid-template-columns:repeat(auto-fill,minmax(195px,1fr));
-             gap:12px}
-.card{background:#fff;border:1px solid #e0e0e0;border-radius:12px;
-      padding:20px;cursor:pointer;transition:all 0.2s;
-      text-decoration:none;display:block;
-      box-shadow:0 1px 3px rgba(0,0,0,0.08)}
-.card:hover{border-color:#1a73e8;transform:translateY(-2px);
-            box-shadow:0 4px 16px rgba(26,115,232,.2)}
+.engine-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:12px}
+.card{background:#fff;border:1px solid #e0e0e0;border-radius:12px;padding:20px;cursor:pointer;transition:all 0.2s;text-decoration:none;display:block;box-shadow:0 1px 3px rgba(0,0,0,0.08)}
+.card:hover{border-color:#1a73e8;transform:translateY(-2px);box-shadow:0 4px 16px rgba(26,115,232,.2)}
 .card .name{font-size:17px;font-weight:700;color:#1a1a1a;margin-bottom:5px}
 .card .cnt{font-size:12px;color:#999}
-.card .go{display:inline-block;background:#e8f0fe;color:#1a73e8;
-          padding:3px 10px;border-radius:20px;font-size:11px;
-          font-weight:600;margin-top:10px}
+.card .go{display:inline-block;background:#e8f0fe;color:#1a73e8;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600;margin-top:10px}
 .card:hover .go{background:#1a73e8;color:#fff}
-.all-btn{display:block;width:100%;margin:32px 0 0;padding:16px;
-         background:linear-gradient(135deg,#1a73e8,#6c3aed);
-         color:#fff;border:none;border-radius:12px;font-size:16px;
-         font-weight:700;cursor:pointer;text-align:center;
-         text-decoration:none;transition:opacity .2s;
-         box-shadow:0 2px 8px rgba(26,115,232,.3)}
+.all-btn{display:block;width:100%;margin:32px 0 0;padding:16px;background:linear-gradient(135deg,#1a73e8,#6c3aed);color:#fff;border:none;border-radius:12px;font-size:16px;font-weight:700;cursor:pointer;text-align:center;text-decoration:none;transition:opacity .2s;box-shadow:0 2px 8px rgba(26,115,232,.3)}
 .all-btn:hover{opacity:.9}
-.footer{text-align:center;color:#bbb;font-size:12px;
-        padding:24px 0 40px;margin-top:16px}
+.footer{text-align:center;color:#bbb;font-size:12px;padding:24px 0 40px;margin-top:16px}
 </style>
 </head>
 <body>
@@ -50,39 +32,23 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
 </div>
 <div class="container">
   <div id="list">Loading...</div>
-  <a class="all-btn" href="quiz.html?engine=ALL">
-    &#127919; Mixed Quiz &#8212; All Engines
-  </a>
+  <a class="all-btn" href="quiz.html?engine=ALL">&#127919; Mixed Quiz &#8212; All Engines</a>
   <p class="footer" id="footer"></p>
 </div>
 <script src="data/engines.js"></script>
 <script>
 (function(){
-  var list=document.getElementById('list');
-  list.innerHTML='';
-  var tq=0,te=0;
-  for(var g in BSI_ENGINES){
-    var engines=BSI_ENGINES[g];
-    var t=document.createElement('div');
-    t.className='group-title';
-    t.textContent=g;
-    list.appendChild(t);
-    var grid=document.createElement('div');
-    grid.className='engine-grid';
-    engines.forEach(function(e){
-      tq+=e.count;te++;
-      var a=document.createElement('a');
-      a.className='card';
+  var list=document.getElementById('list');list.innerHTML='';var tq=0,te=0;
+  for(var g in BSI_ENGINES){var engines=BSI_ENGINES[g];
+    var t=document.createElement('div');t.className='group-title';t.textContent=g;list.appendChild(t);
+    var grid=document.createElement('div');grid.className='engine-grid';
+    engines.forEach(function(e){tq+=e.count;te++;
+      var a=document.createElement('a');a.className='card';
       a.href='quiz.html?engine='+encodeURIComponent(e.id);
-      a.innerHTML='<div class="name">'+e.label+'</div>'
-                 +'<div class="cnt">'+e.count+' questions</div>'
-                 +'<span class="go">Start Quiz &#8594;</span>';
-      grid.appendChild(a);
-    });
-    list.appendChild(grid);
-  }
-  document.getElementById('footer').textContent=
-    te+' engines · '+tq+' total questions';
+      a.innerHTML='<div class="name">'+e.label+'</div><div class="cnt">'+e.count+' questions</div><span class="go">Start Quiz &#8594;</span>';
+      grid.appendChild(a);});
+    list.appendChild(grid);}
+  document.getElementById('footer').textContent=te+' engines \u00b7 '+tq+' total questions';
 })();
 </script>
 </body>

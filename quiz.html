@@ -6,234 +6,88 @@
 <title>BSI Quiz</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
-     background:#f0f2f5;color:#333;min-height:100vh}
-.header{background:#fff;border-bottom:1px solid #e0e0e0;
-        padding:12px 20px;display:flex;align-items:center;gap:12px;
-        position:sticky;top:0;z-index:200;
-        box-shadow:0 1px 3px rgba(0,0,0,0.08)}
-.back{color:#999;text-decoration:none;font-size:22px;line-height:1}
-.back:hover{color:#1a73e8}
-.htitle{font-size:16px;font-weight:700;flex:1;color:#1a1a1a}
-.hsub{font-size:12px;color:#999}
-.pbar-wrap{background:#e0e0e0;height:4px}
-.pbar{height:4px;background:linear-gradient(90deg,#1a73e8,#6c3aed);
-      width:0%;transition:width .4s ease}
-.sbar{background:#fff;padding:10px 20px;
-      display:flex;justify-content:space-between;align-items:center;
-      border-bottom:1px solid #f0f0f0;
-      position:sticky;top:49px;z-index:100;
-      box-shadow:0 1px 3px rgba(0,0,0,0.05)}
-.sleft{display:flex;align-items:center;gap:8px}
-.snum{font-size:20px;font-weight:800;color:#1a73e8}
-.spct{font-size:13px;color:#999}
-.sprog{font-size:13px;color:#999}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f0f2f5;color:#333;min-height:100vh}
+.header{background:#fff;border-bottom:1px solid #e0e0e0;padding:12px 20px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:200;box-shadow:0 1px 3px rgba(0,0,0,0.08)}
+.back{color:#999;text-decoration:none;font-size:22px;line-height:1}.back:hover{color:#1a73e8}
+.htitle{font-size:16px;font-weight:700;flex:1;color:#1a1a1a}.hsub{font-size:12px;color:#999}
+.pbar-wrap{background:#e0e0e0;height:4px}.pbar{height:4px;background:linear-gradient(90deg,#1a73e8,#6c3aed);width:0%;transition:width .4s ease}
+.sbar{background:#fff;padding:10px 20px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #f0f0f0;position:sticky;top:49px;z-index:100;box-shadow:0 1px 3px rgba(0,0,0,0.05)}
+.sleft{display:flex;align-items:center;gap:8px}.snum{font-size:20px;font-weight:800;color:#1a73e8}.spct{font-size:13px;color:#999}.sprog{font-size:13px;color:#999}
 .wrap{max-width:760px;margin:0 auto;padding:20px}
-.shuffle-info{text-align:center;color:#bbb;font-size:12px;
-              margin-bottom:16px;font-style:italic}
-.qcard{background:#fff;border:1px solid #e0e0e0;border-radius:12px;
-       padding:22px;margin-bottom:14px;transition:all 0.3s;
-       box-shadow:0 1px 3px rgba(0,0,0,0.06)}
-.qcard.done{opacity:.95}
-.qhead{display:flex;justify-content:space-between;
-       align-items:flex-start;margin-bottom:16px;gap:10px}
-.qtext{font-size:15px;font-weight:600;color:#1a1a1a;
-       line-height:1.55;flex:1}
-.badges{display:flex;flex-direction:column;gap:4px;
-        align-items:flex-end;flex-shrink:0}
-.blv{background:#e8f0fe;color:#1a73e8;padding:2px 8px;
-     border-radius:10px;font-size:11px;font-weight:700}
-.bnum{background:#f3e8fd;color:#8430ce;padding:2px 8px;
-      border-radius:10px;font-size:10px;font-weight:500}
-.beng{background:#fff3e0;color:#e65100;padding:2px 8px;
-      border-radius:10px;font-size:10px;font-weight:600;
-      white-space:nowrap}
+.shuffle-info{text-align:center;color:#bbb;font-size:12px;margin-bottom:16px;font-style:italic}
+.qcard{background:#fff;border:1px solid #e0e0e0;border-radius:12px;padding:22px;margin-bottom:14px;transition:all 0.3s;box-shadow:0 1px 3px rgba(0,0,0,0.06)}.qcard.done{opacity:.95}
+.qhead{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;gap:10px}
+.qtext{font-size:15px;font-weight:600;color:#1a1a1a;line-height:1.55;flex:1}
+.badges{display:flex;flex-direction:column;gap:4px;align-items:flex-end;flex-shrink:0}
+.blv{background:#e8f0fe;color:#1a73e8;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:700}
+.bnum{background:#f3e8fd;color:#8430ce;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:500}
+.beng{background:#fff3e0;color:#e65100;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:600;white-space:nowrap}
 .opts{display:flex;flex-direction:column;gap:8px}
-.opt{display:flex;align-items:flex-start;padding:12px 16px;
-     border:2px solid #e0e0e0;border-radius:10px;cursor:pointer;
-     transition:all .18s;font-size:14px;color:#444;gap:12px}
-.opt:hover:not(.off){border-color:#1a73e8;background:#f8f9ff;color:#1a1a1a}
-.opt.off{pointer-events:none}
-.lbl{font-weight:800;color:#aaa;min-width:20px;
-     text-align:center;flex-shrink:0;margin-top:1px}
-.opt.ok      {border-color:#34a853;background:#e6f4ea;color:#137333}
-.opt.ok .lbl {color:#34a853}
-.opt.no      {border-color:#ea4335;background:#fce8e6;color:#c5221f}
-.opt.no .lbl {color:#ea4335}
-.opt.show    {border-color:#34a853;background:#e6f4ea;color:#137333}
-.opt.show .lbl{color:#34a853}
-.fb{margin-top:12px;padding:12px 16px;border-radius:8px;
-    font-size:14px;display:none}
+.opt{display:flex;align-items:flex-start;padding:12px 16px;border:2px solid #e0e0e0;border-radius:10px;cursor:pointer;transition:all .18s;font-size:14px;color:#444;gap:12px}
+.opt:hover:not(.off){border-color:#1a73e8;background:#f8f9ff;color:#1a1a1a}.opt.off{pointer-events:none}
+.lbl{font-weight:800;color:#aaa;min-width:20px;text-align:center;flex-shrink:0;margin-top:1px}
+.opt.ok{border-color:#34a853;background:#e6f4ea;color:#137333}.opt.ok .lbl{color:#34a853}
+.opt.no{border-color:#ea4335;background:#fce8e6;color:#c5221f}.opt.no .lbl{color:#ea4335}
+.opt.show{border-color:#34a853;background:#e6f4ea;color:#137333}.opt.show .lbl{color:#34a853}
+.fb{margin-top:12px;padding:12px 16px;border-radius:8px;font-size:14px;display:none}
 .fb.ok{background:#e6f4ea;color:#137333;border:1px solid #34a853}
 .fb.no{background:#fce8e6;color:#c5221f;border:1px solid #ea4335}
-.fb .exp{margin-top:8px;padding-top:8px;color:#666;
-         font-style:italic;border-top:1px solid rgba(0,0,0,0.08)}
-.fb .ref{margin-top:5px;color:#1a73e8;font-size:12px;
-         font-style:normal;font-weight:500}
-.result{background:#fff;border:1px solid #e0e0e0;border-radius:16px;
-        padding:40px;text-align:center;margin-top:20px;display:none;
-        box-shadow:0 1px 3px rgba(0,0,0,0.08)}
+.fb .exp{margin-top:8px;padding-top:8px;color:#666;font-style:italic;border-top:1px solid rgba(0,0,0,0.08)}
+.fb .ref{margin-top:5px;color:#1a73e8;font-size:12px;font-style:normal;font-weight:500}
+.result{background:#fff;border:1px solid #e0e0e0;border-radius:16px;padding:40px;text-align:center;margin-top:20px;display:none;box-shadow:0 1px 3px rgba(0,0,0,0.08)}
 .result h2{font-size:24px;margin-bottom:14px;color:#1a1a1a}
-.bigscore{font-size:54px;font-weight:900;
-          background:linear-gradient(135deg,#1a73e8,#6c3aed);
-          -webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.bigscore{font-size:54px;font-weight:900;background:linear-gradient(135deg,#1a73e8,#6c3aed);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .rdesc{color:#999;margin:12px 0 24px;font-size:15px}
 .rbtns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-.btn{padding:12px 26px;border-radius:8px;font-size:15px;font-weight:700;
-     cursor:pointer;border:none;text-decoration:none;
-     display:inline-block;transition:opacity .2s}
-.btn:hover{opacity:.85}
-.bp{background:linear-gradient(135deg,#1a73e8,#6c3aed);color:#fff}
-.bs{background:#f0f2f5;color:#555;border:1px solid #e0e0e0}
-@media(max-width:500px){
-  .qtext{font-size:14px}
-  .opt{font-size:13px;padding:10px 12px}
-  .bigscore{font-size:40px}
-}
+.btn{padding:12px 26px;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;border:none;text-decoration:none;display:inline-block;transition:opacity .2s}.btn:hover{opacity:.85}
+.bp{background:linear-gradient(135deg,#1a73e8,#6c3aed);color:#fff}.bs{background:#f0f2f5;color:#555;border:1px solid #e0e0e0}
+@media(max-width:500px){.qtext{font-size:14px}.opt{font-size:13px;padding:10px 12px}.bigscore{font-size:40px}}
 </style>
 </head>
 <body>
-<div class="header">
-  <a class="back" href="index.html">&#8592;</a>
-  <div>
-    <div class="htitle" id="htitle">Loading&#8230;</div>
-    <div class="hsub"   id="hsub"></div>
-  </div>
-</div>
+<div class="header"><a class="back" href="index.html">&#8592;</a><div><div class="htitle" id="htitle">Loading&#8230;</div><div class="hsub" id="hsub"></div></div></div>
 <div class="pbar-wrap"><div class="pbar" id="pbar"></div></div>
-<div class="sbar">
-  <div class="sleft">
-    <span class="snum" id="snum">0/0</span>
-    <span class="spct" id="spct"></span>
-  </div>
-  <span class="sprog" id="sprog">0 answered</span>
-</div>
+<div class="sbar"><div class="sleft"><span class="snum" id="snum">0/0</span><span class="spct" id="spct"></span></div><span class="sprog" id="sprog">0 answered</span></div>
 <div class="wrap">
-  <p class="shuffle-info">
-    &#128256; Questions &amp; answer options shuffled each session
-  </p>
+  <p class="shuffle-info">&#128256; Questions &amp; answer options shuffled each session</p>
   <div id="qa"></div>
-  <div class="result" id="result">
-    <h2>&#127881; Quiz Complete!</h2>
-    <div class="bigscore" id="fscore"></div>
-    <p class="rdesc" id="fdesc"></p>
-    <div class="rbtns">
-      <button class="btn bp" onclick="location.reload()">
-        &#128256; Shuffle &amp; Retry
-      </button>
-      <a class="btn bs" href="index.html">&#8592; Back to Menu</a>
-    </div>
+  <div class="result" id="result"><h2>&#127881; Quiz Complete!</h2><div class="bigscore" id="fscore"></div><p class="rdesc" id="fdesc"></p>
+    <div class="rbtns"><button class="btn bp" onclick="location.reload()">&#128256; Shuffle &amp; Retry</button><a class="btn bs" href="index.html">&#8592; Back to Menu</a></div>
   </div>
 </div>
 <script src="data/questions.js"></script>
 <script>
 var LABELS=["A","B","C","D"];
 function gp(n){return new URLSearchParams(location.search).get(n)||"ALL";}
-function shuffle(arr){
-  var a=arr.slice();
-  for(var i=a.length-1;i>0;i--){
-    var j=Math.floor(Math.random()*(i+1));
-    var t=a[i];a[i]=a[j];a[j]=t;
-  }
-  return a;
-}
-var eng=gp("engine");
-var raw=[];
-if(eng==="ALL"){
-  for(var k in BSI_QUESTIONS) raw=raw.concat(BSI_QUESTIONS[k]);
-}else{
-  raw=BSI_QUESTIONS[eng]||[];
-}
+function shuffle(arr){var a=arr.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+var eng=gp("engine");var raw=[];
+if(eng==="ALL"){for(var k in BSI_QUESTIONS) raw=raw.concat(BSI_QUESTIONS[k]);}else{raw=BSI_QUESTIONS[eng]||[];}
 var questions=shuffle(raw).map(function(q){
-  var opts=q.options.map(function(t,i){return{t:t,ok:i===q.correctIdx};});
-  var s=shuffle(opts);
-  return{
-    num:        q.num,
-    text:       q.text,
-    level:      q.level||1,
-    engine:     q.engine||"",
-    options:    s.map(function(o){return o.t;}),
-    correctIdx: s.findIndex(function(o){return o.ok;}),
-    explanation:q.explanation||"",
-    reference:  q.reference||""
-  };
-});
+  var opts=q.options.map(function(t,i){return{t:t,ok:i===q.correctIdx};});var s=shuffle(opts);
+  return{num:q.num,text:q.text,level:q.level||1,engine:q.engine||"",options:s.map(function(o){return o.t;}),correctIdx:s.findIndex(function(o){return o.ok;}),explanation:q.explanation||"",reference:q.reference||""};});
 var total=questions.length,answered=0,correct=0;
-document.getElementById("htitle").textContent=
-  eng==="ALL"?"Mixed Quiz — All Engines":eng+" Quiz";
-document.getElementById("hsub").textContent=
-  total+" questions · shuffled each session";
-function render(){
-  var area=document.getElementById("qa");
-  area.innerHTML="";
-  questions.forEach(function(q,qi){
-    var oh="";
-    q.options.forEach(function(opt,oi){
-      oh+='<div class="opt" id="o_'+qi+'_'+oi+'"'
-         +' onclick="pick('+qi+','+oi+')">'
-         +'<span class="lbl">'+LABELS[oi]+'</span>'
-         +'<span>'+opt+'</span></div>';
-    });
-    var engBadge=(eng==="ALL")
-      ?'<span class="beng">'+q.engine+'</span>'
-      :'';
-    area.innerHTML+=
-      '<div class="qcard" id="c_'+qi+'">'
-      +'<div class="qhead">'
-      +'<div class="qtext">'+(qi+1)+'. '+q.text+'</div>'
-      +'<div class="badges">'
-      +'<span class="blv">L'+q.level+'</span>'
-      +'<span class="bnum">#'+q.num+'</span>'
-      +engBadge
-      +'</div></div>'
-      +'<div class="opts">'+oh+'</div>'
-      +'<div class="fb" id="fb_'+qi+'"></div>'
-      +'</div>';
-  });
-}
-function pick(qi,oi){
-  var q=questions[qi];
-  var ok=(oi===q.correctIdx);
-  answered++;if(ok)correct++;
-  q.options.forEach(function(_,j){
-    var el=document.getElementById("o_"+qi+"_"+j);
-    el.classList.add("off");
-    if(j===q.correctIdx)el.classList.add(ok?"ok":"show");
-    if(j===oi&&!ok)el.classList.add("no");
-  });
-  var fb=document.getElementById("fb_"+qi);
-  fb.className="fb "+(ok?"ok":"no");
-  var h=ok
-    ?"<strong>&#10003; Correct!</strong>"
-    :"<strong>&#10007; Incorrect.</strong> Correct answer: <strong>"
-      +LABELS[q.correctIdx]+"</strong>";
-  if(q.explanation)
-    h+='<div class="exp">&#128161; '+q.explanation+'</div>';
-  if(q.reference)
-    h+='<div class="ref">&#128216; '+q.reference+'</div>';
-  fb.innerHTML=h;
-  fb.style.display="block";
+document.getElementById("htitle").textContent=eng==="ALL"?"Mixed Quiz \u2014 All Engines":eng+" Quiz";
+document.getElementById("hsub").textContent=total+" questions \u00b7 shuffled each session";
+function render(){var area=document.getElementById("qa");area.innerHTML="";
+  questions.forEach(function(q,qi){var oh="";
+    q.options.forEach(function(opt,oi){oh+='<div class="opt" id="o_'+qi+'_'+oi+'" onclick="pick('+qi+','+oi+')"><span class="lbl">'+LABELS[oi]+'</span><span>'+opt+'</span></div>';});
+    var engBadge=(eng==="ALL")?'<span class="beng">'+q.engine+'</span>':'';
+    area.innerHTML+='<div class="qcard" id="c_'+qi+'"><div class="qhead"><div class="qtext">'+(qi+1)+'. '+q.text+'</div><div class="badges"><span class="blv">L'+q.level+'</span><span class="bnum">#'+q.num+'</span>'+engBadge+'</div></div><div class="opts">'+oh+'</div><div class="fb" id="fb_'+qi+'"></div></div>';});}
+function pick(qi,oi){var q=questions[qi];var ok=(oi===q.correctIdx);answered++;if(ok)correct++;
+  q.options.forEach(function(_,j){var el=document.getElementById("o_"+qi+"_"+j);el.classList.add("off");if(j===q.correctIdx)el.classList.add(ok?"ok":"show");if(j===oi&&!ok)el.classList.add("no");});
+  var fb=document.getElementById("fb_"+qi);fb.className="fb "+(ok?"ok":"no");
+  var h=ok?"<strong>&#10003; Correct!</strong>":"<strong>&#10007; Incorrect.</strong> Correct answer: <strong>"+LABELS[q.correctIdx]+"</strong>";
+  if(q.explanation)h+='<div class="exp">&#128161; '+q.explanation+'</div>';
+  if(q.reference)h+='<div class="ref">&#128216; '+q.reference+'</div>';
+  fb.innerHTML=h;fb.style.display="block";
   var pct=Math.round(correct/answered*100);
-  document.getElementById("snum").textContent=correct+"/"+answered;
-  document.getElementById("spct").textContent="("+pct+"%)";
-  document.getElementById("sprog").textContent=answered+"/"+total+" answered";
-  document.getElementById("pbar").style.width=(answered/total*100)+"%";
+  document.getElementById("snum").textContent=correct+"/"+answered;document.getElementById("spct").textContent="("+pct+"%)";
+  document.getElementById("sprog").textContent=answered+"/"+total+" answered";document.getElementById("pbar").style.width=(answered/total*100)+"%";
   document.getElementById("c_"+qi).classList.add("done");
-  if(answered===total){
-    setTimeout(function(){
-      var p=Math.round(correct/total*100);
-      document.getElementById("fscore").textContent=
-        correct+"/"+total+" · "+p+"%";
-      document.getElementById("fdesc").textContent=
-        p>=80?"&#127942; Excellent! You passed!":
-        p>=60?"&#128218; Good effort. Review missed questions.":
-              "&#128214; Keep studying. Check explanations above.";
-      var r=document.getElementById("result");
-      r.style.display="block";
-      r.scrollIntoView({behavior:"smooth"});
-    },600);
-  }
-}
+  if(answered===total){setTimeout(function(){var p=Math.round(correct/total*100);
+    document.getElementById("fscore").textContent=correct+"/"+total+" \u00b7 "+p+"%";
+    document.getElementById("fdesc").textContent=p>=80?"\u{1F3C6} Excellent! You passed!":p>=60?"\u{1F4DA} Good effort. Review missed questions.":"\u{1F4D6} Keep studying. Check explanations above.";
+    var r=document.getElementById("result");r.style.display="block";r.scrollIntoView({behavior:"smooth"});},600);}}
 render();
 </script>
 </body>
